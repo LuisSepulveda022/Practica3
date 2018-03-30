@@ -1,19 +1,47 @@
 #include <iostream>
-#include <string.h>
+#include <conio.h>
 #include <fstream>
-
+#include <exception>
+#include <string>
 using namespace std;
+fstream archivo;
 
-void metodo1(char *, int ,int );
-void metodo2(char *, int ,int );
+void metodo1(string , int ,int );
+void metodo2(string , int ,int );
+string almacenar();
+
+void escribirArchivo(){
+    archivo.open("datos.txt",ios::out);
+    if( archivo.is_open() ){
+        cout << "Escriba 'exit' para terminar el archivo...\n\n";
+        string salida_texto;
+        for(;;){
+            string linea;
+            getline(cin,linea);
+            if(linea == "exit")
+                break;
+
+            salida_texto += linea +'\n';
+
+        }
+        archivo<<salida_texto; //copiamos lo que tenemos en la variable y lo guardamos en la caena de texto
+        archivo.close();
+    }else{
+        cout<<"No se encontro el archivo...";
+    }
+
+}
 
 int main()
 {
-        char cade[] = "01000001011000100100001101100100";
+        //char cade[] = "01000001011000100100001101100100";
         int tam,semilla,metodo;
+        //escribirArchivo();
+        string cade = almacenar();
+        tam = cade.length();
 
-        tam = strlen(cade);
-
+        cout << tam << endl;
+        getch();
         cout <<"Ingrese el valor de la semilla: ";cin >> semilla;
         cout <<"Ingrese el metodo de codificacion:\n1.Metodo1\n2.Metodo2\n";cin>>metodo;
         switch (metodo) {
@@ -28,14 +56,10 @@ int main()
             break;
         }
 
-
-
-
-
     return 0;
 }
 
-void metodo1(char *cad, int tam , int sem){
+void metodo1(string cad, int tam , int sem){
     /*Para codificar se convierte el archivo a binario, luego se separa en bloques de n bits. En el
 primer bloque se cambian todos los 1 por 0 y viceversa. Para los grupos siguientes se debe
 contar el número de 1s y 0s en el grupo anterior y hacer cambios según la siguiente regla:
@@ -108,7 +132,7 @@ contar el número de 1s y 0s en el grupo anterior y hacer cambios según la sigu
     cout << "Cadena modificada:"<< cadena<<endl;
 }
 
-void metodo2(char *cad,  int tam, int sem){
+void metodo2(string cad,  int tam, int sem){
     /*Para codificar se convierte el archivo a binario, luego se separa en bloques de n bits. Cada
 bit dentro de un grupo se desplaza una posición, de manera que el primer bit del grupo
 codificado corresponde al último bit del grupo sin codificar, el segundo bit codificado
@@ -132,5 +156,20 @@ al penúltimo sin codificar*/
 }
 
 
+string almacenar(){
+    string alm;
+    archivo.open("datos.txt",ios::in);
+    if(archivo.is_open()){
+        string linea;
+        while (getline(archivo,linea)) {
+            //cout <<linea <<endl;
+            alm += linea;
+        }
+        archivo.close();
+    }else{
+        cout << "Lo siento no se encontro el archivo...";
+    }
 
+    return alm;
+}
 
