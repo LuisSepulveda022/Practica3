@@ -10,12 +10,24 @@ void metodo2(char *, int ,int );
 int main()
 {
         char cade[] = "01000001011000100100001101100100";
-        int tam,semilla;
+        int tam,semilla,metodo;
 
         tam = strlen(cade);
-        cout <<"Ingrese el valor de la semilla: ";cin >> semilla;
 
-        metodo1(cade,tam,semilla);
+        cout <<"Ingrese el valor de la semilla: ";cin >> semilla;
+        cout <<"Ingrese el metodo que quiere utilizar:\n1.Metodo1\n2.Metodo2 ";cin>>metodo;
+        switch (metodo) {
+            case 1:
+                metodo1(cade,tam,semilla);
+                break;
+            case 2:
+                //metodo2(cade,tam,semilla);
+                break;
+        default:
+            cout <<"No escogio un metodo existente... "<<endl;
+            break;
+        }
+
 
 
 
@@ -123,6 +135,7 @@ contar el número de 1s y 0s en el grupo anterior y hacer cambios según la sigu
 
 
 }
+
 
 
 
