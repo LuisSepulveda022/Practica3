@@ -1,7 +1,5 @@
 #include <iostream>
-
 #include <fstream>
-
 #include <string>
 using namespace std;
 fstream archivo;
@@ -106,8 +104,9 @@ contar el número de 1s y 0s en el grupo anterior y hacer cambios según la sigu
     }
 
     cadena[tam] = '\0';
+    cout<<"\n\n"<<"\tMetodo1, semilla:"<<sem<<"\n\n";
     cout << "Cadena original:  "<< cad << endl;
-    cout << "Cadena modificada:"<< cadena<<endl;
+    cout << "Cadena codificada:"<< cadena<<endl;
 }
 
 void metodo2(string cad,  int tam, int sem){
@@ -128,11 +127,10 @@ al penúltimo sin codificar*/
         }
     }
     cadena[tam] = '\0';
-
+    cout<<"\n\n"<<"\tMetodo2, semilla:"<<sem<<"\n\n";
     cout <<"Cadena original:  " <<cad <<endl;
-    cout <<"Cadena modificada:"<<cadena<<endl;
+    cout <<"Cadena codificada:"<<cadena<<endl;
 }
-
 
 string almacenar(){
     string alm;
