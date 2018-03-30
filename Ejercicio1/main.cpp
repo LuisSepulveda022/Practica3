@@ -15,13 +15,13 @@ int main()
         tam = strlen(cade);
 
         cout <<"Ingrese el valor de la semilla: ";cin >> semilla;
-        cout <<"Ingrese el metodo que quiere utilizar:\n1.Metodo1\n2.Metodo2 ";cin>>metodo;
+        cout <<"Ingrese el metodo que quiere utilizar:\n1.Metodo1\n2.Metodo2\n ";cin>>metodo;
         switch (metodo) {
             case 1:
                 metodo1(cade,tam,semilla);
                 break;
             case 2:
-                //metodo2(cade,tam,semilla);
+                metodo2(cade,tam,semilla);
                 break;
         default:
             cout <<"No escogio un metodo existente... "<<endl;
@@ -134,6 +134,24 @@ contar el número de 1s y 0s en el grupo anterior y hacer cambios según la sigu
     cout << "Cadena modificada:"<< cadena<<endl;
 
 
+}
+
+void metodo2(char *cad,  int tam, int sem){
+    char cadena[tam];
+
+    for (int i=0;  i < tam ; i += sem){
+        for(int j=i; j < (i+sem); j++){
+            if ( j == i ){
+                cadena[j]= cad[((i+sem)-1)];
+            }else{
+                cadena[j] = cad[j-1];
+            }
+        }
+    }
+    cadena[tam] = '\0';
+
+    cout <<"Cadena original:  " <<cad <<endl;
+    cout <<"Cadena modificada:"<<cadena<<endl;
 }
 
 
