@@ -15,7 +15,7 @@ int main()
         tam = strlen(cade);
 
         cout <<"Ingrese el valor de la semilla: ";cin >> semilla;
-        cout <<"Ingrese el metodo que quiere utilizar:\n1.Metodo1\n2.Metodo2\n ";cin>>metodo;
+        cout <<"Ingrese el metodo de codificacion:\n1.Metodo1\n2.Metodo2\n";cin>>metodo;
         switch (metodo) {
             case 1:
                 metodo1(cade,tam,semilla);
@@ -61,31 +61,6 @@ contar el número de 1s y 0s en el grupo anterior y hacer cambios según la sigu
             }
         //sino ya no es el primer bloque de bits debemos tener en cuenta los parametros
         }else if(i != 0){
-            /*if ( con0 > con1){
-                for(int k = i ; k < (i+sem) ; k ++){
-                    if( k % 2 ==0){
-                        if (cad[k] == '0'){
-                            cadena[k] = '1';
-                        }else{
-                            cadena[k] = '0';
-                        }
-                    }else{
-                        cadena[k] = cad[k];
-                    }
-                }
-            }else if( con1 > con0){
-                for(int k = i ; k < (i+sem) ; k ++){
-                    if( k % 3 ==0){
-                        if (cad[k] == '0'){
-                            cadena[k] = '1';
-                        }else{
-                            cadena[k] = '0';
-                        }
-                    }else{
-                        cadena[k] = cad[k];
-                    }
-                }
-            }*/
             for (int k=i; k < (i+sem);k++){
                 cadena[k] = cad[k];
             }
@@ -128,15 +103,17 @@ contar el número de 1s y 0s en el grupo anterior y hacer cambios según la sigu
         }
     }
 
-
     cadena[tam] = '\0';
     cout << "Cadena original:  "<< cad << endl;
     cout << "Cadena modificada:"<< cadena<<endl;
-
-
 }
 
 void metodo2(char *cad,  int tam, int sem){
+    /*Para codificar se convierte el archivo a binario, luego se separa en bloques de n bits. Cada
+bit dentro de un grupo se desplaza una posición, de manera que el primer bit del grupo
+codificado corresponde al último bit del grupo sin codificar, el segundo bit codificado
+corresponde al primero sin codificar y así sucesivamente hasta que el último corresponde
+al penúltimo sin codificar*/
     char cadena[tam];
 
     for (int i=0;  i < tam ; i += sem){
