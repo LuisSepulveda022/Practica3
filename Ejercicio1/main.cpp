@@ -1,7 +1,7 @@
 #include <iostream>
-#include <conio.h>
+
 #include <fstream>
-#include <exception>
+
 #include <string>
 using namespace std;
 fstream archivo;
@@ -10,50 +10,28 @@ void metodo1(string , int ,int );
 void metodo2(string , int ,int );
 string almacenar();
 
-void escribirArchivo(){
-    archivo.open("datos.txt",ios::out);
-    if( archivo.is_open() ){
-        cout << "Escriba 'exit' para terminar el archivo...\n\n";
-        string salida_texto;
-        for(;;){
-            string linea;
-            getline(cin,linea);
-            if(linea == "exit")
-                break;
-
-            salida_texto += linea +'\n';
-
-        }
-        archivo<<salida_texto; //copiamos lo que tenemos en la variable y lo guardamos en la caena de texto
-        archivo.close();
-    }else{
-        cout<<"No se encontro el archivo...";
-    }
-
-}
-
 int main()
 {
-        //char cade[] = "01000001011000100100001101100100";
         int tam,semilla,metodo;
-        //escribirArchivo();
         string cade = almacenar();
         tam = cade.length();
 
-        cout << tam << endl;
-        getch();
-        cout <<"Ingrese el valor de la semilla: ";cin >> semilla;
-        cout <<"Ingrese el metodo de codificacion:\n1.Metodo1\n2.Metodo2\n";cin>>metodo;
-        switch (metodo) {
-            case 1:
-                metodo1(cade,tam,semilla);
+        if ( cade.empty()==true ){
+            cout << "Lo siento no se encuentra el archivo..."<<endl;
+        }else{
+            cout <<"Ingrese el valor de la semilla: ";cin >> semilla;
+            cout <<"Ingrese el metodo de codificacion:\n1.Metodo1\n2.Metodo2\n";cin>>metodo;
+            switch (metodo) {
+                case 1:
+                    metodo1(cade,tam,semilla);
+                    break;
+                case 2:
+                    metodo2(cade,tam,semilla);
+                    break;
+            default:
+                cout <<"No escogio un metodo existente... "<<endl;
                 break;
-            case 2:
-                metodo2(cade,tam,semilla);
-                break;
-        default:
-            cout <<"No escogio un metodo existente... "<<endl;
-            break;
+            }
         }
 
     return 0;
@@ -166,8 +144,6 @@ string almacenar(){
             alm += linea;
         }
         archivo.close();
-    }else{
-        cout << "Lo siento no se encontro el archivo...";
     }
 
     return alm;
