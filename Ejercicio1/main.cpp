@@ -17,7 +17,14 @@ int main()
         if ( cade.empty()==true ){
             cout << "Lo siento no se encuentra el archivo..."<<endl;
         }else{
-            cout <<"Ingrese el valor de la semilla: ";cin >> semilla;
+            while(true){
+                cout <<"Ingrese el valor de la semilla: ";cin >> semilla;cout << endl;
+                if(semilla >= tam){
+                    cout << "Semilla invalida ya que la longitud de la cadena es:"<<tam<<endl;
+                }else{
+                    break;
+                }
+            }
             cout <<"Ingrese el metodo de codificacion:\n1.Metodo1\n2.Metodo2\n";cin>>metodo;
             switch (metodo) {
                 case 1:
@@ -31,7 +38,6 @@ int main()
                 break;
             }
         }
-
     return 0;
 }
 
@@ -45,11 +51,9 @@ contar el número de 1s y 0s en el grupo anterior y hacer cambios según la sigu
      */
 
     int con1 =0,con0=0;
-
     char cadena[tam];
 
     for (int i=0; i < tam ; i += sem){
-
         //si i=0 es porque estamos en el primer bloque de bits solo se intercambiar
         if (i == 0 ){
             for(int k=i ; k  < (i+sem) ; k++){
@@ -116,11 +120,16 @@ codificado corresponde al último bit del grupo sin codificar, el segundo bit co
 corresponde al primero sin codificar y así sucesivamente hasta que el último corresponde
 al penúltimo sin codificar*/
     char cadena[tam];
-
+    int pos = -1;
     for (int i=0;  i < tam ; i += sem){
-        for(int j=i; j < (i+sem); j++){
+        if((pos+sem) > tam ){
+            pos += ((tam-1)-pos);
+        }else{
+            pos +=sem;
+        }
+        for(int j=i; j < (i+sem) ; j++){
             if ( j == i ){
-                cadena[j]= cad[((i+sem)-1)];
+                cadena[j]= cad[pos];
             }else{
                 cadena[j] = cad[j-1];
             }
@@ -143,7 +152,6 @@ string almacenar(){
         }
         archivo.close();
     }
-
     return alm;
 }
 
