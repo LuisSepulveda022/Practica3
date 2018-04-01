@@ -4,19 +4,28 @@
 using namespace std;
 fstream archivo;
 
-void metodo1(string , int ,int );
-void metodo2(string , int ,int );
-string almacenar();
+string metodo1(string , int ,int );
+string metodo2(string , int ,int );
+string almacenar(string);
+void escribirArchivo(string , string );
 
 int main()
 {
         int tam,semilla,metodo;
-        string cade = almacenar();
+        string nombre;
+
+        cout << "Ingrese el nombre al archivo a leer: "; getline(cin,nombre);
+        nombre +=".bin";
+        string modificada,cade = almacenar(nombre);
         tam = cade.length();
 
         if ( cade.empty()==true ){
             cout << "Lo siento no se encuentra el archivo..."<<endl;
         }else{
+
+            cout << "Ingrese el nombre al archivo para guardar el texto codificado: "; getline(cin,nombre);
+            nombre +=".bin";
+
             while(true){
                 cout <<"Ingrese el valor de la semilla: ";cin >> semilla;cout << endl;
                 if(semilla >= tam){
@@ -28,20 +37,22 @@ int main()
             cout <<"Ingrese el metodo de codificacion:\n1.Metodo1\n2.Metodo2\n";cin>>metodo;
             switch (metodo) {
                 case 1:
-                    metodo1(cade,tam,semilla);
+                    modificada=metodo1(cade,tam,semilla);
                     break;
                 case 2:
-                    metodo2(cade,tam,semilla);
+                    modificada=metodo2(cade,tam,semilla);
                     break;
             default:
                 cout <<"No escogio un metodo existente... "<<endl;
                 break;
             }
+            escribirArchivo(modificada,nombre);
         }
+
     return 0;
 }
 
-void metodo1(string cad, int tam , int sem){
+string metodo1(string cad, int tam , int sem){
     /*Para codificar se convierte el archivo a binario, luego se separa en bloques de n bits. En el
 primer bloque se cambian todos los 1 por 0 y viceversa. Para los grupos siguientes se debe
 contar el número de 1s y 0s en el grupo anterior y hacer cambios según la siguiente regla:
@@ -111,9 +122,11 @@ contar el número de 1s y 0s en el grupo anterior y hacer cambios según la sigu
     cout<<"\n\n"<<"\tMetodo1, semilla:"<<sem<<"\n\n";
     cout << "Cadena original:  "<< cad << endl;
     cout << "Cadena codificada:"<< cadena<<endl;
+
+    return cadena;
 }
 
-void metodo2(string cad,  int tam, int sem){
+string metodo2(string cad,  int tam, int sem){
     /*Para codificar se convierte el archivo a binario, luego se separa en bloques de n bits. Cada
 bit dentro de un grupo se desplaza una posición, de manera que el primer bit del grupo
 codificado corresponde al último bit del grupo sin codificar, el segundo bit codificado
@@ -139,11 +152,13 @@ al penúltimo sin codificar*/
     cout<<"\n\n"<<"\tMetodo2, semilla:"<<sem<<"\n\n";
     cout <<"Cadena original:  " <<cad <<endl;
     cout <<"Cadena codificada:"<<cadena<<endl;
+
+    return cadena;
 }
 
-string almacenar(){
+string almacenar(string nombre){
     string alm;
-    archivo.open("datos.txt",ios::in);
+    archivo.open(nombre,ios::in);
     if(archivo.is_open()){
         string linea;
         while (getline(archivo,linea)) {
@@ -152,6 +167,14 @@ string almacenar(){
         }
         archivo.close();
     }
+
     return alm;
 }
 
+void escribirArchivo(string salida_texto, string nombre){
+
+    archivo.open(nombre,ios::out);
+    archivo<<salida_texto; //copiamos lo que tenemos en la variable y lo guardamos en la caena de texto
+    archivo.close();
+
+}
