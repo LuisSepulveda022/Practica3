@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-
+#include <string>
 using namespace std;
 
 string Almacenar(string );
@@ -85,56 +85,63 @@ string metodo1(string cad, int tam , int sem){
     int con1 =0,con0=0;
     char cadena[tam];
 
-    for (int i=0; i < tam ; i += sem){
-        //si i=0 es porque estamos en el primer bloque de bits solo se intercambiar
-        if (i == 0 ){
-            for(int k=i ; k  < (i+sem) ; k++){
-                if(cad[k] == '0'){
-                    cadena[k] = '1';
-                }else{
-                    cadena[k] = '0';
-                }
-            }
-        //sino ya no es el primer bloque de bits debemos tener en cuenta los parametros
-        }else if(i != 0){
-            for (int k=i; k < (i+sem);k++){
-                cadena[k] = cad[k];
-            }
-            if(con0 > con1 || con1 > con0){
-                for(int k=i+1 ; k < (i+sem);k +=2){
-                    if (cad[k] == '0'){
-                        cadena[k] = '1';
-                    }else{
-                        cadena[k] = '0';
-                    }
-                }
+      for(int i =0 ; i < tam ; i +=sem){
+        if( i == 0 ){
+          for(int k=i ; k  < (i+sem) ; k++){
+            if(cad[k] == '0'){
+                cadena[k] = '1';
             }else{
-                for(int k=i ; k < (i+sem) ; k++){
-                    if (cad[k] == '0'){
-                        cadena[k] = '1';
-                    }else{
-                        cadena[k] = '0';
-                    }
-                }
+                cadena[k] = '0';
             }
-        }
+          }
+          //cout << cadena<< endl;
+        }else if( i != 0){
+          for(int k=i; k < (i+sem);k++){
+             cadena[k] = cad[k];
+          }
+          if(con0 > con1 ){
+            for(int k=i+2 ; k < (i+sem);k +=3){
+              if (cad[k] == '0'){
+                cadena[k] = '1';
+              }else{
+                cadena[k] = '0';
+              }
+            }
 
+          }else if(con1 > con0){
+            for(int k=i+1 ; k < (i+sem) ; k +=2 ){
+              if(cad[k] == '0'){
+                cadena[k]= '1';
+              }else{
+                cadena[k] = '0';
+              }
+            }
+
+          }else{
+            for(int k=i ; k < (i+sem) ; k++){
+              if (cad[k] == '0'){
+                cadena[k] = '1';
+              }else{
+                cadena[k] = '0';
+              }
+            }
+          }
+        }
+        con1= 0;
         con0=0;
-        con1=0;
-        //contamos la cantidad de '0' y '1' que hay en cada bloque de bits
         for(int j=i ; j < (i+sem) ; j++){
-            if (cad[j] == '0'){
-                con0 ++;
-            }else{
-                con1 ++;
-            }
+          if (cad[j] == '0'){
+              con0 ++;
+          }else{
+              con1 ++;
+          }
         }
-    }
+      }
+      cadena[tam] = '\0';
+      cout<<"\n\n"<<"\tMetodo1, semilla:"<<sem<<"\n\n";
+      cout << "Cadena original:  "<< cad << endl;
+      cout << "Cadena codificada:"<< cadena<<endl;
 
-    cadena[tam] = '\0';
-    cout<<"\n\n"<<"\tMetodo1, semilla:"<<sem<<"\n\n";
-    cout << "Cadena original:  "<< cad << endl;
-    cout << "Cadena codificada:"<< cadena<<endl;
 
     return cadena;
 }
