@@ -14,8 +14,8 @@ int main()
         int tam,semilla,metodo;
         string nombre;
 
-        cout << "Ingrese el nombre al archivo a leer: "; getline(cin,nombre);
-        nombre +=".bin";
+        cout << "Ingrese el nombre al archivo a leer con extension 'ejemplo.txt': "; getline(cin,nombre);
+
         string modificada,cade = almacenar(nombre);
         tam = cade.length();
 
@@ -23,8 +23,7 @@ int main()
             cout << "Lo siento no se encuentra el archivo..."<<endl;
         }else{
 
-            cout << "Ingrese el nombre al archivo para guardar el texto codificado: "; getline(cin,nombre);
-            nombre +=".bin";
+            cout << "Ingrese el nombre al archivo para guardar el texto codificado con extension 'ejemplo.txt': "; getline(cin,nombre);
 
             while(true){
                 cout <<"Ingrese el valor de la semilla: ";cin >> semilla;cout << endl;
@@ -38,9 +37,11 @@ int main()
             switch (metodo) {
                 case 1:
                     modificada=metodo1(cade,tam,semilla);
+                    cout << "El Metodo1 Funciono con exito..."<<endl;
                     break;
                 case 2:
                     modificada=metodo2(cade,tam,semilla);
+                    cout << "El Metodo2 Funciono con exito..."<<endl;
                     break;
             default:
                 cout <<"No escogio un metodo existente... "<<endl;
@@ -119,9 +120,6 @@ contar el número de 1s y 0s en el grupo anterior y hacer cambios según la sigu
     }
 
     cadena[tam] = '\0';
-    cout<<"\n\n"<<"\tMetodo1, semilla:"<<sem<<"\n\n";
-    cout << "Cadena original:  "<< cad << endl;
-    cout << "Cadena codificada:"<< cadena<<endl;
 
     return cadena;
 }
@@ -149,16 +147,14 @@ al penúltimo sin codificar*/
         }
     }
     cadena[tam] = '\0';
-    cout<<"\n\n"<<"\tMetodo2, semilla:"<<sem<<"\n\n";
-    cout <<"Cadena original:  " <<cad <<endl;
-    cout <<"Cadena codificada:"<<cadena<<endl;
 
     return cadena;
 }
 
 string almacenar(string nombre){
-    string alm;
-    archivo.open(nombre,ios::in);
+    string alm,dir="../Ejercicio1/";
+    dir += nombre;
+    archivo.open(dir,ios::in);
     if(archivo.is_open()){
         string linea;
         while (getline(archivo,linea)) {
@@ -172,8 +168,9 @@ string almacenar(string nombre){
 }
 
 void escribirArchivo(string salida_texto, string nombre){
-
-    archivo.open(nombre,ios::out);
+    string dir = "../Ejercicio1/";
+    dir += nombre;
+    archivo.open(dir,ios::out);
     archivo<<salida_texto; //copiamos lo que tenemos en la variable y lo guardamos en la caena de texto
     archivo.close();
 
